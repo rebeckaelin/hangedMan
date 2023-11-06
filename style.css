@@ -20,3 +20,24 @@ h1 {
     font-family: 'Caveat', cursive;
     font-size: 4rem;
 }
+
+main{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.used-words{
+    border: black 2px solid;
+    padding: 3rem;
+}
+
+.hanged-man{
+       border: black 2px solid;
+       padding: 3rem;
+}
+
+footer{
+    display: flex;
+    justify-content: space-evenly;
+    margin: 4rem;
+}
