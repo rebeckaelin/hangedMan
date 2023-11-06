@@ -32,7 +32,7 @@ main{
 }
 
 .hanged-man{
-       border: black 2px solid;
+       /* border: black 2px solid; */
        padding: 3rem;
 }
 
