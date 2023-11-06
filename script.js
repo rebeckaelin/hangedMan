@@ -1,5 +1,6 @@
 let usedLetters = document.querySelector('.used-letters')
-
+let showWord = document.querySelector('.word')
+let guessButton = document.querySelector('#btn')
 
 let guessedLetter = []
 
@@ -12,8 +13,18 @@ function getRandomWord() {
 
 let pickedWord = getRandomWord();
 console.log(pickedWord);
-console.log(pickedWord.split('').fill('_',0).join(' '));
+typeOutWord = pickedWord.split('').fill('_',0).join(' ')
 
-// console.log(pickedWord);
-let userGuess = document.querySelector('#inputs').value;
-console.log(userGuess);
+showWord.innerHTML = typeOutWord //Skriver ut rätt antal _ baserat på ordet som slumpats
+
+// hämtar in det användaren skriver i inputfältet. sparas i en variabel
+let userGuess;
+guessButton.addEventListener('click', () => {
+    userGuess = document.querySelector('#input').value;
+    console.log(userGuess);
+
+})
+
+if (pickedWord.includes(userGuess)) {
+    console.log(yay)
+}

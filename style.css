@@ -25,7 +25,7 @@ main{
     justify-content: space-evenly;
 }
 
-.used-words{
+.used-letters{
     border: black 2px solid;
     padding: 3rem;
 }
@@ -40,7 +40,7 @@ footer{
     justify-content: space-evenly;
     margin: 4rem;
 }
-#btns{
+#btn{
     padding: 1rem;
     border-radius: 1rem;
     font-size: 1.3rem;
@@ -49,6 +49,13 @@ footer{
     background-color: bisque;
     box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.11);
 }
-#inputs{
-    padding: 2rem;
+#input{
+    /* padding: 2rem; */
+    font-size: 2rem;
+    width:10rem;
+    height: 4rem;
+    text-align: center;
+
+}.word{
+    font-size: 2.9rem;
 }
