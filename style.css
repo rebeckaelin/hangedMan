@@ -1,5 +1,65 @@
-* {
+*{ 
     margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    padding: 0; 
+    box-sizing:border-box; 
+}
+
+body{
+    background-color: rgb(204, 244, 244);
+}
+
+
+p{
+    font-size: 1.5rem;
+}
+
+.displayFigure{
+    margin: auto;
+    width: 450px;
+    height: 500px;
+    border: solid black 1px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem;
+    background-color: rgb(255, 247, 247);
+    
+}
+
+.hide{
+    display: none;
+}
+
+
+
+.inputFields{
+    width: fit-content;
+    margin: 10px auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.scoreboard{
+    width: fit-content;
+    margin: 10px auto;
+}
+
+.scoreboard span:nth-child(1){
+    color: rgb(131, 145, 227);
+    font-size: 2rem;
+}
+.scoreboard span:nth-child(2){
+    color: crimson;
+    font-size: 1.2rem;
+}
+
+button{
+    width: 8rem;
+}
+
+.resetbtnbox{
+    width: fit-content;
+    margin: auto;
 }
