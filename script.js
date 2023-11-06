@@ -2,7 +2,7 @@ let usedLetters = document.querySelector('.used-letters')
 let showWord = document.querySelector('.word')
 let guessButton = document.querySelector('#btn')
 
-let guessedLetter = []
+let guessedLetter = [];
 
 let levelOneWords = ["bil", "hund", "cykel", "sol", "blomma", "bok", "dator", "äpple", "katt", "regn", "glas", "stol", "sten", "måne", "ballong", "elefant", "flaska", "stjärna", "kaffe", "fågel", "träd", "fjäril", "buss", "gräs", "orm", "hus", "spegel", "flod", "mus", "nyckel", "fjäll", "korv", "park", "penna", "lampa", "toalett", "sko", "tåg", "fjäder", "musik", "vatten", "regnbåge", "kamera"]
 
@@ -21,10 +21,25 @@ showWord.innerHTML = typeOutWord //Skriver ut rätt antal _ baserat på ordet so
 let userGuess;
 guessButton.addEventListener('click', () => {
     userGuess = document.querySelector('#input').value;
-    console.log(userGuess);
+    document.querySelector('#input').value = '';
+    // console.log(userGuess);
+    
 
+    if (pickedWord.includes(userGuess)) {
+        let typeOutArray = typeOutWord.split(' ');
+        
+
+        for (let i = 0; i < pickedWord.length; i++) {
+            if (pickedWord[i] === userGuess) {
+                typeOutArray[i] = userGuess;
+            }
+        }
+        typeOutWord = typeOutArray.join(' ')
+        showWord.innerHTML = typeOutWord;
+    }else{
+        guessedLetter.push(userGuess);
+        usedLetters.innerHTML = guessedLetter
+        console.log(guessedLetter);
+    }
 })
 
-if (pickedWord.includes(userGuess)) {
-    console.log(yay)
-}

@@ -28,6 +28,7 @@ main{
 .used-letters{
     border: black 2px solid;
     padding: 3rem;
+    font-size: 2rem;
 }
 
 .hanged-man{
