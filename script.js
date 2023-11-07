@@ -8,7 +8,6 @@ let showArms = document.getElementById('arms')
 let showLegs = document.getElementById('legs')
 let youLose = document.querySelector('.you-lose')
 
-
 let guessedLetter = [];
 let guesses = 0;
 
@@ -31,8 +30,7 @@ showUnderlines.innerHTML = printUnderlines
 
 //funktion för att få in spelarens gissningar c
 guessButton.addEventListener('click', () => {
-    userGuess = document.querySelector('#input').value;
-    document.querySelector('#input').value = '';
+    
 
     // console.log(userGuess);
     
@@ -51,7 +49,7 @@ guessButton.addEventListener('click', () => {
         showUsedLetters.innerText = guessedLetter;
         // console.log(guessedLetter);
         guesses++;
-        console.log(guesses);
+        // console.log(guesses);
 
         if (guesses === 1){
             showScaffold.style.visibility = 'visible';
@@ -70,7 +68,6 @@ guessButton.addEventListener('click', () => {
             youLose.innerHTML = `Du förlorade! Rätt ord var ${pickedWord}`
         }
     }
-    
 })
 
 
