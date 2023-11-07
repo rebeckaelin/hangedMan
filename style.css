@@ -7,39 +7,59 @@
     font-family: 'Overpass', sans-serif;
 }
 
+body{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+}
+
 .header{
     /* border: black 2px solid; */
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 4rem;
+    grid-column: 1/-1;
 }
 
 h1 {
     font-family: 'Caveat', cursive;
     font-size: 4rem;
     }
-
-main{
-    display: flex;
-    justify-content: space-evenly;
+h3{
+    font-family: 'Caveat', cursive;
+    text-align: center;
+    padding-bottom: 3rem;
 }
 
-.used-letters{
-    border: black 2px solid;
+p{
+    margin-top: 1rem;
+}
+
+.used-letters-box{
+    /* border: black 2px solid; */
     padding: 3rem;
+    margin: 1rem;
     font-size: 2rem;
+    grid-column: 1/2;
+    text-align: center;
 }
 
 .hanged-man{
-       /* border: black 2px solid; */
-       padding: 3rem;
+    /* border: black 2px solid; */
+       /* padding: 3rem; */
+    grid-column: 2/-1;
+    grid-row: 2/3;
 }
 
-footer{
+.footer__form{
     display: flex;
     justify-content: space-evenly;
     margin: 4rem;
+    grid-column: 1/2;
+    grid-row: 3/4 ;
+    padding-top: 3rem;
+
 }
 #btn{
     padding: 1rem;
@@ -51,12 +71,19 @@ footer{
     box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.11);
 }
 #input{
-    /* padding: 2rem; */
     font-size: 2rem;
     width:10rem;
     height: 4rem;
     text-align: center;
+    
 
-}.word{
-    font-size: 2.9rem;
+}.show-underlines{
+    font-size: 6rem;
+    grid-column: 2/-1;
+    grid-row: 3/4;
+    padding-top: 5rem;
+}
+
+#scaffold ,#head, #body ,#arms, #legs{
+    visibility: hidden
 }
