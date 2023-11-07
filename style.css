@@ -49,7 +49,9 @@ p{
 .scoreboard span:nth-child(1){
     color: rgb(131, 145, 227);
     font-size: 2rem;
+    display: block;
 }
+
 .scoreboard span:nth-child(2){
     color: crimson;
     font-size: 1.2rem;
@@ -63,3 +65,4 @@ button{
     width: fit-content;
     margin: auto;
 }
+

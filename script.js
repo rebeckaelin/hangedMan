@@ -6,6 +6,8 @@ const scaffold = document.querySelector("#scaffold");
 const resetbtn = document.querySelector("#reset");
 const guessbtn = document.querySelector("#guessbtn");
 const inputletter = document.querySelector("#guessletter");
+const printwords = document.querySelector("#score");
+const printguesses = document.querySelector("#tries");
 
 const words = ["motivation", "hund", "katt"];
 
@@ -30,7 +32,7 @@ const initGame = () => {
   console.log("Word to guess: ", gameWord);
   console.log("playfield: ", wordtoShow);
   console.log("word length: ", wordtoShow.length);
-
+    printwords.textContent = wordtoShow.join(" ");
   findLetter();
 };
 
@@ -43,7 +45,7 @@ const findLetter = () => {
 
     console.log("letter guessed: ", guessletter);
 
-    if (gameWord.includes(guessletter)) {
+    if(gameWord.includes(guessletter)) {
         //Loops through "secret word"(gameWord)
       for (let index = 0; index < gameWord.length; index++) {
         //Checks the current array(gameWord) and checks if character at current index is strictly(===) guessletter
@@ -52,19 +54,32 @@ const findLetter = () => {
           wordtoShow[index] = guessletter;
         }
       }
+
       console.log("found words", wordtoShow);
+      printwords.textContent = wordtoShow.join(" ");
       inputletter.value = "";
-    } else {
+
+      if(!wordtoShow.includes("_")){
+        alert("Congratulations! You win!!!");
+        guessbtn.disabled = true;
+      }
+
+    }else{
         //if letter not found, increment failCount
       failCount ++;
       console.log("Fail counter: ", failCount);
       guessedWords.push(guessletter);
       console.log("Words guessed: ", guessedWords);
+      printguesses.textContent = guessedWords.join(" ")
       drawHangedMan()
       inputletter.value = "";
     }
+
+
   });
 };
+
+
 
 //Draw the "victim" based on the number assigned to failCount switch-case
 //remove class hide on the svg
