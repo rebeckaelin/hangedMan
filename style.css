@@ -44,17 +44,22 @@ p{
 .scoreboard{
     width: fit-content;
     margin: 10px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:center;
 }
 
 .scoreboard span:nth-child(1){
     color: rgb(131, 145, 227);
-    font-size: 2rem;
+    font-size: 3.5rem;
     display: block;
 }
 
 .scoreboard span:nth-child(2){
     color: crimson;
-    font-size: 1.2rem;
+    font-size: 2rem;
+
 }
 
 button{
