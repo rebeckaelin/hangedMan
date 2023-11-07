@@ -12,14 +12,20 @@
 <body>
     <header class="header">
         <h1 class="header__title">HANGED MAN</h1>
-        <h2 class="header__level">nivå:</h2>
+        <h2 class="header__level"></h2>
+        <button class="header__button">BÖRJA SPELA</button>
     </header>
 
     <aside class="used-letters-box">
-        <h3>DU HAR GISSAT PÅ..</h3>
+        <h3>DU HAR GISSAT PÅ...</h3>
         <p class="show-used-letters"></p>
-        <p class="you-lose"></p>
+        
     </aside>
+
+    <div class="win-or-lose hidden">
+        <p class="you-win"></p>
+        <p class="you-lose"></p>
+    </div>
 
     <div class="hanged-man ">
         <svg width="501" height="565" viewBox="0 0 501 565" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -44,7 +50,7 @@
     </div>
     <section class="footer__form">
         <form name="myForm" autocomplete="off">
-            <input type="text" id="input" name="inputbox" placeholder="" value="">
+            <input type="text" id="input" name="inputbox" placeholder="" value="" maxlength="1">
             <input type="button" id="btn" name="button" value="GISSA"></button>
         </form>
     </section>

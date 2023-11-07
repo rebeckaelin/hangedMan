@@ -7,14 +7,13 @@
     font-family: 'Overpass', sans-serif;
 }
 
-body{
+body {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: auto;
 }
 
-.header{
-    /* border: black 2px solid; */
+.header {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -25,11 +24,33 @@ body{
 h1 {
     font-family: 'Caveat', cursive;
     font-size: 4rem;
+    margin-bottom: 2rem;
     }
-h3{
+h3 {
     font-family: 'Caveat', cursive;
     text-align: center;
     padding-bottom: .5rem;
+}
+
+.win-or-lose {
+    grid-column: 1/-1;
+    grid-row: 2/3;
+    z-index: 1;
+    margin:0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    background-color: blanchedalmond;
+    width: 20rem;
+    height: 12rem;
+    margin-top: 10rem;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.11);
+    border-radius: 1rem;
+}
+
+.hidden {
+    display: none;
 }
 
 p{
@@ -37,17 +58,15 @@ p{
 }
 
 .used-letters-box{
-    /* border: black 2px solid; */
     padding: 3rem;
     margin: 1rem;
     font-size: 2rem;
     grid-column: 1/2;
+    grid-row: 2/3;
     text-align: center;
 }
 
-.hanged-man{
-    /* border: black 2px solid; */
-       /* padding: 3rem; */
+.hanged-man {
     grid-column: 2/-1;
     grid-row: 2/3;
 }
@@ -61,7 +80,7 @@ p{
     padding-top: 3rem;
 
 }
-#btn{
+#btn ,.header__button{
     padding: 1rem;
     border-radius: 1rem;
     font-size: 1.3rem;
