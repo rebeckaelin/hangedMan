@@ -13,6 +13,12 @@ p{
     font-size: 1.5rem;
 }
 
+h1{
+    text-align: center;
+    color: rgb(235, 166, 116);
+    font-size: 4rem;
+}
+
 .displayFigure{
     margin: auto;
     width: 450px;
