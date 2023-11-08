@@ -53,3 +53,7 @@ footer{
 #inputs{
     padding: 2rem;
 }
+
+.hidden{
+    display: none;
+}
