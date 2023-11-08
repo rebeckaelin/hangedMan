@@ -35,7 +35,7 @@ let wrongLetters = [];
 let regex = /^[a-zA-ZäöåÄÖÅ]+$/; //lägg till denna i funktionen där man gissar på bokstav /rebban
 let state = "";
 
-//returnerar ett random ord
+//returnerar ett ord
 function getRandomWord() {
   return words[Math.floor(Math.random() * words.length)];
 }
@@ -62,7 +62,7 @@ const findLetter = () => {
     document.querySelector("#guessInput").value = ""; // rensar inputfältet efter varje knapptryckning på "gissa"
 
     if (wrongLetters.includes(userGuess)) {
-      return; //kontrollerar om vi redan skrivit in gissad bokstav
+      return; //kontrollerar om vi redan skrivit in den gissade bokstaven.
     }
     if (wordToGuess.includes(userGuess)) {
       guessedLetters = printUnderlines;
