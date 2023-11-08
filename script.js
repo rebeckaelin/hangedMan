@@ -48,6 +48,8 @@ function getRandomWord() {
   return words[Math.floor(Math.random() * words.length)];
 }
 
+
+
 //En funktion som initierar spelet.
 const initGame = () => {
   //Tar ett ord på från listan och sparar den i wordToGuess och gör alla bokstäver till små bokstäver.
@@ -70,107 +72,98 @@ const findLetter = () => {
     guess = document.querySelector("#guessInput").value; //Tar värdet från input.
     document.querySelector("#guessInput").value = ""; //Rensar input fältet efter att spelaren har klickat på knappen "gissa".
 
-    if (regex.test(userGuess)) {
-      //Kontrollerar så att bara bokstäver har används till inputet, regex returnerar sant.
-      if (guessedLetters.includes(userGuess)) {
-        return; //Kollar om spelaren har använt det gissade ordet förut.
-        //Om spelaren har det händer ingenting.
-      }
-
-      if (wordToGuess.includes(userGuess)) {
-        guessedLetters = printUnderlines;
-        for (let i = 0; i < wordToGuess.length; i++) {
-          //Loopar igenom ordet baserat på längd
-          if (wordToGuess[i] === userGuess) {
-            //Kollar om gissade bokstaven finns i "index" på loopade ordet.
-            printUnderlines[i] = userGuess; //Byter ut understrecket med en bokstav på samma index om bokstaven finns i det sökta ordet.
-          }
-        }
-
-        if (!printUnderlines.includes("_")) {
-          //Om arraen som har det sökta ordet inte har några understreck i sig vinner spelaren spelet.
-          showWinOrLoseBox.classList.remove("hide");
-          youWin.innerHTML = `Du vann,  <br> Vill du spela igen? <br> Klicka Här`; //Skriver ut en ett meddelande på skärmen.
-          resetButton.classList.remove("hide"); //Visar en knapp med text som man kan klicka på för att starta om spelet.
-          resetButton.addEventListener("click", () => {
-            // Laddar om en ny sida om man klickar på knappen.
-            location.reload();
-          });
-        }
-        let underlines = guessedLetters.join(" "); //Klipper ihop alla använda bokstäver till en sträng.
-        showUnderlines.textContent = underlines; //Placerar ett understreck där det inte finns bokstäver
-      } else {
-        wrongLetters.push(userGuess); //Skriver in alla fel bokstäver in i en array.
-        showWrongLetters.textContent = wrongLetters; //Skriv ut fel bokstäver in i HTML.
-
-        drawMan(userGuess);
-      }
-    } else {
-      alert("Enter a letter."); //Om spelaren inte skriver in en bokstav visas en alert.
-    }
+    actionListner(guess)
   });
 
+  //Kollar efter "globala" knapptryck i dokumentet när textrutan ej är fokuserad.
   document.addEventListener("keydown", (e) => {
-    if (wordToGuess.includes(e.key)) {
+    //Hindrar sidan att upptäcka knapptryck i något annat än textrutan när den är focuserad.
+    if(document.activeElement === document.querySelector(".inputBox")) {
+        return
+      }else{
+        actionListner(e.key);
+      }
+   
+  });
+};
+
+//Funktion som lyssnar efter händelser
+const actionListner = (action) => {
+  if (guessedLetters.includes(action)) {
+    return; //Kollar om spelaren har använt det gissade ordet förut.
+    //Om spelaren har det händer ingenting.
+  }
+
+  if (regex.test(action)) {
+    //Kontrollerar så att bara bokstäver har används till inputet, regex returnerar sant.
+    if (guessedLetters.includes(action)) {
+      return; //Kollar om spelaren har använt det gissade ordet förut.
+      //Om spelaren har det händer ingenting.
+    }
+
+    if (wordToGuess.includes(action)) {
       guessedLetters = printUnderlines;
       for (let i = 0; i < wordToGuess.length; i++) {
         //Loopar igenom ordet baserat på längd
-        if (wordToGuess[i] === e.key) {
+        if (wordToGuess[i] === action) {
           //Kollar om gissade bokstaven finns i "index" på loopade ordet.
-          printUnderlines[i] = e.key; //Byter ut understrecket med en bokstav på samma index om bokstaven finns i det sökta ordet.
+          printUnderlines[i] = action; //Byter ut understrecket med en bokstav på samma index om bokstaven finns i det sökta ordet.
         }
       }
 
       if (!printUnderlines.includes("_")) {
+        //Om arraen som har det sökta ordet inte har några understreck i sig vinner spelaren spelet.
         showWinOrLoseBox.classList.remove("hide");
-        youWin.innerHTML = `Du vann,  <br> Vill du spela igen? <br> Klicka Här`;
-        resetButton.classList.remove("hide");
-
+        youWin.innerHTML = `Du vann,  <br> Vill du spela igen? <br> Klicka Här`; //Skriver ut en ett meddelande på skärmen.
+        resetButton.classList.remove("hide"); //Visar en knapp med text som man kan klicka på för att starta om spelet.
         resetButton.addEventListener("click", () => {
+          // Laddar om en ny sida om man klickar på knappen.
           location.reload();
         });
       }
       let underlines = guessedLetters.join(" "); //Klipper ihop alla använda bokstäver till en sträng.
       showUnderlines.textContent = underlines; //Placerar ett understreck där det inte finns bokstäver
     } else {
-      wrongLetters.push(e.key); //Skriver in alla fel bokstäver in i en array.
+      wrongLetters.push(action); //Skriver in alla fel bokstäver in i en array.
       showWrongLetters.textContent = wrongLetters; //Skriv ut fel bokstäver in i HTML.
 
-      drawMan(e.key);
+      drawMan(action);
     }
-  });
+  } else {
+    alert("Enter a letter."); //Om spelaren inte skriver in en bokstav visas en alert.
+  }
 };
 
 //En funktion för att rita ut mannen om spelar inte gissar rätt bokstav.
 const drawMan = (guess) => {
   if (!wordToGuess.includes(guess)) {
     //Om ordet inte innehåller spelarens gissning, går man in i "if" uttrycket.
-
     if (failedGuesses == 0) {
-      // På först misslyckandet skrivs "scafolding" ut.
+      // På först misslyckandet skrivs "scaffolding" ut.
       theHangedMan.item(failedGuesses).classList.remove("hidden");
     } else {
       theHangedMan.item(5 - failedGuesses).classList.remove("hidden"); // Resten av gubben skrivs ut.
     }
 
-    failedGuesses++; //Plusa på antalet misslyckade försök.
+    failedGuesses++; //incrementerar på antalet misslyckade försök.
 
+    //Om spelaren har misslyckats fem gånger förlorar spelaren spelet.
     if (failedGuesses === 5) {
-      //Om spelaren har misslyckats fem gånger förlorar spelaren spelet.
 
       showWinOrLoseBox.classList.remove("hide"); //Visar en låda med text, genom att ta bort hide klassen .
       youWin.innerHTML = `Du Förlorade! Rätta ordet var: "${wordToGuess}". <br>Vill du spela igen?<br> Klicka Här`; //Skriver ut en ett meddelande på skärmen.
       resetButton.classList.remove("hide"); //Visar en knapp med text som man kan klicka på för att starta om spelet, genom att ta bort hide klassen.
+
+
       resetButton.addEventListener("click", () => {
         location.reload(); // Laddar om en ny sida om man klickar på knappen.
       });
     }
   }
 };
-//En funktion för att starta om spelet, med liten fördröjning för att rita ut allting på skärmen.
-//"State" visar om man vunnit eller förlorat.
 
 /*-----funktionsanrop-------*/
 
 /*Initierar spelet*/
 initGame();
+
