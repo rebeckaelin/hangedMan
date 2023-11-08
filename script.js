@@ -43,7 +43,7 @@ function getRandomWord() {
 const initGame = () => {
   //Get random word and assign it to wordToGuess and makes all letters to lowcase
   wordToGuess = getRandomWord().toLocaleLowerCase();
-  //Create a new array using Array object and set its length to wordToGuesss length.
+  //Create a new array using Array object and set its length to wordToGuess length.
   //new Array creates an empty array by itself and by passing in wordToGuess.length it gets a length but doesn't have content
   //With fill("_") we can fill the array with "_" based on the length and generate diffrent length based on words it gets.
   printUnderlines = new Array(wordToGuess.length).fill("_");
