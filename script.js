@@ -4,7 +4,7 @@ let guessButton = document.querySelector("#guessButton");
 let theHangedMan = document.querySelectorAll(".hidden"); //changing the stae of the man
 let youWin = document.querySelector(".win");
 let startButton = document.querySelector(".header__button");
-let showWinOrLoseBox = document.querySelector(".hidden");
+let showWinOrLoseBox = document.querySelector(".hide");
 
 const words = [
   "motivation",
@@ -80,7 +80,7 @@ const findLetter = () => {
 
       if (!printUnderlines.includes("_")) {
         showWinOrLoseBox.classList.remove("hide");
-        youWin.innerHTML = `Snyggt! <br> Du gissade rätt!`;
+        youWin.innerHTML = `Snyggt, <br> du gissade rätt!`;
         //en funktion för att spela igen? /Rebban
       }
       let underlines = guessedLetters.join(" "); //
