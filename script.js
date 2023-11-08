@@ -35,7 +35,6 @@ let guessedLetters = [];        //Array for all the used words.
 let printUnderlines = [];       //Array to hold the under lines for the places where there is no letter.
 let failedGuesses = 0;          //To keep track of how many times the player has failed, so that we can draw the man.
 let maxTries = 5;
-
 let wrongLetters = [];
 let regex = /^[a-zA-ZäöåÄÖÅ]+$/; //Used to check that only letters are used for the input.
 let state = "";
