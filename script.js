@@ -31,9 +31,8 @@ let guessedLetters = [];
 let printUnderlines = [];
 let failedGuesses = 0;
 let maxTries = 5;
-
 let wrongLetters = [];
-let regex = /^[a-zA-ZäöåÄÖÅ]+$/; //lägg till denna i funktionen där man gissar på bokstav
+let regex = /^[a-zA-ZäöåÄÖÅ]+$/; //lägg till denna i funktionen där man gissar på bokstav /rebban
 let state = "";
 
 //returnerar ett random ord
@@ -48,10 +47,6 @@ const initGame = () => {
   //new Array creates an empty array by itself and by passing in wordToGuess.length it gets a length but doesn't have content
   //With fill("_") we can fill the array with "_" based on the length and generate diffrent length based on words it gets.
   printUnderlines = new Array(wordToGuess.length).fill("_");
-
-  console.log("Word to guess: ", wordToGuess); //tänker vi kan ta bort dessa 3 loggarna? /Rebban
-  console.log("playfield: ", printUnderlines);
-  console.log("word length: ", printUnderlines.length);
 
   //use join to make the letters in the array to one string and a separator.
   //Then assign it to printWords.textContent to output on document
@@ -74,7 +69,6 @@ const findLetter = () => {
       for (let i = 0; i < wordToGuess.length; i++) {
         if (wordToGuess[i] === userGuess) {
           printUnderlines[i] = userGuess; //ersätter _ med bokstaven om den finns i ordet
-          console.log("Rätt bokstav: ", printUnderlines); //ta bort denna? /Rebban
         }
       }
 
@@ -85,12 +79,9 @@ const findLetter = () => {
       }
       let underlines = guessedLetters.join(" "); //
       showUnderlines.textContent = underlines; //skriver ut _ där det fortf. saknas bokstäver
-      console.log(guessedLetters); //ta bort denna? /Rebban
     } else {
       wrongLetters.push(userGuess); //lägger till felaktig gissad bokstav i en array
       showWrongLetters.textContent = wrongLetters; //visa felaktiga och gissade bokstäver i html
-
-      console.log(failedGuesses); //ta bort denna? /Rebban
       drawMan();
     }
   });
@@ -120,9 +111,7 @@ const drawMan = () => {
 
 function resetGame(state) {
   if (
-    confirm(
-      `Du ${state}, rätt ord var: ${wordToGuess}. <br> Vill du spela igen?`
-    )
+    confirm(`Du ${state}, rätt ord var: ${wordToGuess}. Vill du spela igen?`)
   ) {
     location.reload();
   }
