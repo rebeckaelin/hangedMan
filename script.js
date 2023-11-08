@@ -33,7 +33,7 @@ let failedGuesses = 0;
 let maxTries = 5;
 
 let wrongLetters = [];
-let regex = /^[a-zA-ZäöåÄÖÅ]+$/;
+let regex = /^[a-zA-ZäöåÄÖÅ]+$/; //lägg till denna i funktionen där man gissar på bokstav
 let state = "";
 
 //returnerar ett random ord
@@ -79,7 +79,7 @@ const findLetter = () => {
       }
 
       if (!printUnderlines.includes("_")) {
-        showWinOrLoseBox.classList.remove("hidden");
+        showWinOrLoseBox.classList.remove("hide");
         youWin.innerHTML = `Snyggt! <br> Du gissade rätt!`;
         //en funktion för att spela igen? /Rebban
       }
@@ -120,7 +120,9 @@ const drawMan = () => {
 
 function resetGame(state) {
   if (
-    confirm(`Du ${state}, rätt ord var: ${wordToGuess} vill du spela igen?`)
+    confirm(
+      `Du ${state}, rätt ord var: ${wordToGuess}. <br> Vill du spela igen?`
+    )
   ) {
     location.reload();
   }
