@@ -1,6 +1,6 @@
-let showWrongLetters = document.querySelector(".show-used-letters");
+let showWrongLetters = document.querySelector(".used-letters__text");
 let showUnderlines = document.querySelector(".show-underlines");
-let guessButton = document.querySelector("#btn");
+let guessButton = document.querySelector("#guessButton");
 let theHangedMan = document.querySelectorAll(".hidden"); //changing the stae of the man
 let youWin = document.querySelector(".win");
 let startButton = document.querySelector(".header__button");
@@ -63,8 +63,8 @@ const initGame = () => {
 const findLetter = () => {
   //funktion för att få in spelarens gissningar
   guessButton.addEventListener("click", () => {
-    userGuess = document.querySelector("#input").value; //hämtar värdet i inputfältet
-    document.querySelector("#input").value = ""; // rensar inputfältet efter varje knapptryckning på "gissa"
+    userGuess = document.querySelector("#guessInput").value; //hämtar värdet i inputfältet
+    document.querySelector("#guessInput").value = ""; // rensar inputfältet efter varje knapptryckning på "gissa"
 
     if (guessedLetters.includes(userGuess)) {
       return; //kontrollerar om vi redan skrivit in gissad bokstav
@@ -80,7 +80,8 @@ const findLetter = () => {
 
       if (!printUnderlines.includes("_")) {
         showWinOrLoseBox.classList.remove("hidden");
-        youWin.textContent = `Du gissade rätt!`;
+        youWin.innerHTML = `Snyggt! <br> Du gissade rätt!`;
+        //en funktion för att spela igen? /Rebban
       }
       let underlines = guessedLetters.join(" "); //
       showUnderlines.textContent = underlines; //skriver ut _ där det fortf. saknas bokstäver
@@ -108,7 +109,7 @@ const drawMan = () => {
     failedGuesses++;
 
     if (failedGuesses === 5) {
-      state = "vann!";
+      state = "förlorade!";
       window.setTimeout(function () {
         //delay so that the page can render
         resetGame(state);
