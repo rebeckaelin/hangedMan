@@ -71,7 +71,7 @@ function getRandomWord() {
 startButton.addEventListener("click", () => {
   pickedWord = getRandomWord(); //sparar funktionen som slumpar ett ord i en variabel
   printUnderlines = pickedWord.split("").fill("_").join(" "); //variabel där vi sparar det slumpade ordet och gör det till _
-  showUnderlines.innerHTML = printUnderlines; //Skriver ut rätt antal _ baserat på ordet som slumpats
+  showUnderlines.innerText = printUnderlines; //Skriver ut rätt antal _ baserat på ordet som slumpats
   console.log(pickedWord);
 });
 
@@ -92,14 +92,14 @@ guessButton.addEventListener("click", () => {
     }
     if (guessedLetter.join("") === pickedWord) {
       showWinOrLoseBox.classList.remove("hidden");
-      youWin.innerHTML = `Du gissade rätt!`;
+      youWin.innerText = `Du gissade rätt!`;
     }
     printUnderlines = guessedLetter.join(" "); //gör guessedLetter tillbaks till en sträng igen
-    showUnderlines.innerHTML = printUnderlines; //skriver ut _ där det fortf. saknas bokstäver
+    showUnderlines.innerText = printUnderlines; //skriver ut _ där det fortf. saknas bokstäver
     console.log(guessedLetter);
   } else {
     guessedLetter.push(userGuess); //lägger till felaktig gissad bokstav i en array
-    showUsedLetters.innerText = guessedLetter; //visa felaktiga och gissade bokstäver i html
+    showUsedLetters.innerText = guessedLetter; //visa felaktiga och gissade bokstäver irText
 
     guesses++;
 
@@ -118,7 +118,7 @@ guessButton.addEventListener("click", () => {
     if (guesses === 5) {
       showLegs.style.visibility = "visible";
       showWinOrLoseBox.classList.remove("hidden");
-      youLose.innerHTML = `Du förlorade! Rätt ord var ${pickedWord}`;
+      youLose.innerText = `Du förlorade! Rätt ord var ${pickedWord}`;
     }
   }
 });
@@ -134,6 +134,6 @@ guessButton.addEventListener("click", () => {
 //     guessedLetter = [];
 //     guesses = 0;
 //     printUnderlines = pickedWord.split('').fill('_').join(' ');
-//     showUnderlines.innerHTML = printUnderlines;
+//     showUnderlines.innerText = printUnderlines;
 //     showWinOrLoseBox.classList.add('hidden')
 // }
