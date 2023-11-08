@@ -7,7 +7,7 @@ let picture_of_man = document.querySelectorAll(".hidden"); 		//For changing the 
 let youLose = document.querySelector(".you-lose");		//Ta bort?	//Lose HTML paragraph.
 let youWin = document.querySelector(".you-win");		//Ta bort?	//Win HTML paragraph. 
 let startButton = document.querySelector(".header__button");		//Button to start the game.
-let showWinOrLoseBox = document.querySelector(".hidden");		//HTML Paragraph for the win box at the end of the game.
+let showWinOrLoseBox = document.querySelector(".hidden_end-sign");		//HTML Paragraph for the win box at the end of the game.
 
 //List for all the words.
 const words = [
@@ -86,6 +86,11 @@ const findLetter = () => {
           if (!foundWord.includes("_")) {		          //If the array that has the word the player needs to guess for, has no underlines,  				     				//The player wins the game.  
             showWinOrLoseBox.classList.remove("hidden_end-sign");
             youWin.textContent = `Du gissade rätt!`;  //Prints a win statement to the screen.
+            window.setTimeout(function () {
+              //delay so that the page can render.
+            location.reload();
+            }, 1000); 
+          
           }
           printUnderlines = used_Letters.join(" ");   //Joins al the use dletter into one string.
           showUnderlines.innerHTML = printUnderlines; //PLaces underlines where a letter is still missing.
