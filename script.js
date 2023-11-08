@@ -1,10 +1,13 @@
-let showWrongLetters = document.querySelector(".used-letters__text");
-let showUnderlines = document.querySelector(".show-underlines");
-let guessButton = document.querySelector("#guessButton");
-let theHangedMan = document.querySelectorAll(".hidden"); //changing the stae of the man
-let youWin = document.querySelector(".win");
-let startButton = document.querySelector(".header__button");
-let showWinOrLoseBox = document.querySelector(".hide");
+
+/*-------- Variables -------------*/
+
+let showWrongLetters = document.querySelector(".used-letters__text");   //Get the HTML section that holds the already guessed letters.
+let showUnderlines = document.querySelector(".show-underlines");        //Gets the HTML section that hold the letter to guess.
+let guessButton = document.querySelector("#guessButton");               //A button to guess a letter.
+let theHangedMan = document.querySelectorAll(".hidden");                //changing the state of the man
+let youWin = document.querySelector(".win");                            //Changes the Lose or win HTML paragraph.
+let startButton = document.querySelector(".header__button");            //Button to start the game.
+let showWinOrLoseBox = document.querySelector(".hide");                 //HTML Paragraph for the win box at the end of the game.
 
 //List for all the words.
 const words = [
@@ -27,17 +30,19 @@ const words = [
   "electronics",
 ];
 
-let wordToGuess = "";
-let guessedLetters = [];
-let printUnderlines = [];
-let failedGuesses = 0;
+let wordToGuess = "";           //Variable to hold the randomly chosen word from the list.
+let guessedLetters = [];        //Array for all the used words.
+let printUnderlines = [];       //Array to hold the under lines for the places where there is no letter.
+let failedGuesses = 0;          //To keep track of how many times the player has failed, so that we can draw the man.
 let maxTries = 5;
 
 let wrongLetters = [];
-let regex = /^[a-zA-ZäöåÄÖÅ]+$/; //lägg till denna i funktionen där man gissar på bokstav
+let regex = /^[a-zA-ZäöåÄÖÅ]+$/; //Used to check that only letters are used for the input.
 let state = "";
 
-//returnerar ett random ord
+/*-------- Functions -------------*/
+
+//Returns a random word out the word list.
 function getRandomWord() {
   return words[Math.floor(Math.random() * words.length)];
 }
@@ -50,9 +55,7 @@ const initGame = () => {
   //With fill("_") we can fill the array with "_" based on the length and generate diffrent length based on words it gets.
   printUnderlines = new Array(wordToGuess.length).fill("_");
 
-  console.log("Word to guess: ", wordToGuess); //tänker vi kan ta bort dessa 3 loggarna? /Rebban
-  console.log("playfield: ", printUnderlines);
-  console.log("word length: ", printUnderlines.length);
+  
 
   //use join to make the letters in the array to one string and a separator.
   //Then assign it to printWords.textContent to output on document
@@ -62,70 +65,80 @@ const initGame = () => {
 };
 
 const findLetter = () => {
-  //funktion för att få in spelarens gissningar
+  //Function to get the players guess.
   guessButton.addEventListener("click", () => {
-    userGuess = document.querySelector("#guessInput").value; //hämtar värdet i inputfältet
-    document.querySelector("#guessInput").value = ""; // rensar inputfältet efter varje knapptryckning på "gissa"
+    userGuess = document.querySelector("#guessInput").value; //Gets the value from the inputfield.
+    document.querySelector("#guessInput").value = "";        //"Cleans" the input field after every guess.
 
-    if (guessedLetters.includes(userGuess)) {
-      return; //kontrollerar om vi redan skrivit in gissad bokstav
-    }
-    if (wordToGuess.includes(userGuess)) {
-      guessedLetters = printUnderlines;
-      for (let i = 0; i < wordToGuess.length; i++) {
-        if (wordToGuess[i] === userGuess) {
-          printUnderlines[i] = userGuess; //ersätter _ med bokstaven om den finns i ordet
-          console.log("Rätt bokstav: ", printUnderlines); //ta bort denna? /Rebban
+
+    if( regex.test(userGuess) ){                             //Checks that only letters are used for the input. regex.test() returns true.
+      if (guessedLetters.includes(userGuess)) {
+            return;                                          //Check if the player already has used that letter before, 											
+                                                             //if so then the game does nothing.
+            }
+      if (wordToGuess.includes(userGuess)) {
+        guessedLetters = printUnderlines;
+        for (let i = 0; i < wordToGuess.length; i++) {
+          if (wordToGuess[i] === userGuess) {
+            printUnderlines[i] = userGuess;                    //Replaces the underline with the letter if it's in the word.
+          }
         }
-      }
 
-      if (!printUnderlines.includes("_")) {
-        showWinOrLoseBox.classList.remove("hide");
-        youWin.innerHTML = `Snyggt, <br> du gissade rätt!`;
-        //en funktion för att spela igen? /Rebban
+        if (!printUnderlines.includes("_")) {                 //If the array that has the word the player needs to guess for, has no underlines,  				     				
+                                                              //The player wins the game.  
+          showWinOrLoseBox.classList.remove("hide");
+          youWin.innerHTML = `Snyggt, <br> du gissade rätt!`; //Prints a win statement to the screen.
+          window.setTimeout(function () {
+                                                              //delay so that the page can render.
+            location.reload();
+            }, 1000);
+        }
+        let underlines = guessedLetters.join(" ");            //Joins all the used letters into one string.
+        showUnderlines.textContent = underlines;              //PLaces underlines where a letter is still missing.
+        
+      } else {
+        wrongLetters.push(userGuess);                         //Places a wrong guessed letter into the wrong letter array.
+        showWrongLetters.textContent = wrongLetters;          //Render wrong letters into the html.
+
+      
+        drawMan();
       }
-      let underlines = guessedLetters.join(" "); //
-      showUnderlines.textContent = underlines; //skriver ut _ där det fortf. saknas bokstäver
-      console.log(guessedLetters); //ta bort denna? /Rebban
     } else {
-      wrongLetters.push(userGuess); //lägger till felaktig gissad bokstav i en array
-      showWrongLetters.textContent = wrongLetters; //visa felaktiga och gissade bokstäver i html
-
-      console.log(failedGuesses); //ta bort denna? /Rebban
-      drawMan();
+      alert("Enter a letter.");
     }
   });
 }	                                           
 
                               
 
-//Function to draw the man if wrong guess.
+//Function to draw the man if the player entered the wrong guess.
 const drawMan = () => {
-  if (!wordToGuess.includes(userGuess)) {
+  if (!wordToGuess.includes(userGuess)) {                 //If the word does not contain the player guess, then enter the if statement.
     //Använda bosktäver in i arryen.
-    if (failedGuesses == 0) {
-      //För att få scafolding  att visas först.
+    if (failedGuesses == 0) {                             // On first fail draw the scafolding.
       theHangedMan.item(failedGuesses).classList.remove("hidden");
     } else {
-      theHangedMan.item(5 - failedGuesses).classList.remove("hidden");
+      theHangedMan.item(5 - failedGuesses).classList.remove("hidden");  // Then on the rest of fails draw the rest of the man.
     }
 
-    failedGuesses++;
+    failedGuesses++;                                      //Increment number of fails.
 
-    if (failedGuesses === 5) {
-      state = "förlorade!";
+    if (failedGuesses === 5) {                            //If the number of fails is five then the player losses the game.
+      state = "förlorade!";                               //State for game.                        
+       
       window.setTimeout(function () {
-        //delay so that the page can render
+                                                          //delay so that the page can render
         resetGame(state);
       }, 200);
     }
   }
 };
-
+//Function to reset the game, with small delay to let everyting render on the page.
+//The state variable gives win or lose into the template string.
 function resetGame(state) {
   if (
     confirm(
-      `Du ${state}, rätt ord var: ${wordToGuess}. <br> Vill du spela igen?`
+      `Du ${state}, rätt ord var: ${wordToGuess}. Vill du spela igen?`
     )
   ) {
     location.reload();
