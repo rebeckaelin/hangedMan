@@ -1,60 +1,61 @@
-let showUsedLetters = document.querySelector(".show-used-letters");
+let showWrongLetters = document.querySelector(".show-used-letters");
 let showUnderlines = document.querySelector(".show-underlines");
 let guessButton = document.querySelector("#btn");
-let picture_of_man = document.querySelectorAll(".hidden"); //changing the stae of the man
-let youLose = document.querySelector(".you-lose");
-let youWin = document.querySelector(".you-win");
+let theHangedMan = document.querySelectorAll(".hidden"); //changing the stae of the man
+let youWin = document.querySelector(".win");
 let startButton = document.querySelector(".header__button");
 let showWinOrLoseBox = document.querySelector(".hidden");
 
 const words = [
-    "motivation",
-    "length",
-    "brick",
-    "tenant",
-    "day",
-    "gold",
-    "technique",
-    "sacred",
-    "sunshine",
-    "aquarium",
-    "therapist",
-    "jail",
-    "technology",
-    "javascript",
-    "master",
-    "surf",
-    "electronics",
+  "motivation",
+  "length",
+  "brick",
+  "tenant",
+  "day",
+  "gold",
+  "technique",
+  "sacred",
+  "sunshine",
+  "aquarium",
+  "therapist",
+  "jail",
+  "technology",
+  "javascript",
+  "master",
+  "surf",
+  "electronics",
 ];
 
-let gameWord = "";
-let used_Letters = [];
-let foundWord = [];
-let failCount = 0;
+let wordToGuess = "";
+let guessedLetters = [];
+let printUnderlines = [];
+let failedGuesses = 0;
 let maxTries = 5;
 
-let wrong_Letters = [];
+let wrongLetters = [];
 let regex = /^[a-zA-ZäöåÄÖÅ]+$/;
 let state = "";
 
 //returnerar ett random ord
-function getWord() {
+function getRandomWord() {
   return words[Math.floor(Math.random() * words.length)];
 }
 
 const initGame = () => {
-  //Get random word and assign it to gameWord and makes all letters to lowcase
-  gameWord = getWord().toLocaleLowerCase();
-  //Create a new array using Array object and set its length to gameWords length.
-  //new Array creates an empty array by itself and by passing in gameWord.length it gets a length but doesn't have content
+  //Get random word and assign it to wordToGuess and makes all letters to lowcase
+  wordToGuess = getRandomWord().toLocaleLowerCase();
+  //Create a new array using Array object and set its length to wordToGuesss length.
+  //new Array creates an empty array by itself and by passing in wordToGuess.length it gets a length but doesn't have content
   //With fill("_") we can fill the array with "_" based on the length and generate diffrent length based on words it gets.
-  foundWord = new Array(gameWord.length).fill("_");
-  console.log("Word to guess: ", gameWord);
-  console.log("playfield: ", foundWord);
-  console.log("word length: ", foundWord.length);
+  printUnderlines = new Array(wordToGuess.length).fill("_");
+
+  console.log("Word to guess: ", wordToGuess); //tänker vi kan ta bort dessa 3 loggarna? /Rebban
+  console.log("playfield: ", printUnderlines);
+  console.log("word length: ", printUnderlines.length);
+
   //use join to make the letters in the array to one string and a separator.
   //Then assign it to printWords.textContent to output on document
-  showUnderlines.textContent = foundWord.join(" ");
+  showUnderlines.textContent = printUnderlines.join(" ");
 
   findLetter();
 };
@@ -65,61 +66,61 @@ const findLetter = () => {
     userGuess = document.querySelector("#input").value; //hämtar värdet i inputfältet
     document.querySelector("#input").value = ""; // rensar inputfältet efter varje knapptryckning på "gissa"
 
-    if (used_Letters.includes(userGuess)) {
+    if (guessedLetters.includes(userGuess)) {
       return; //kontrollerar om vi redan skrivit in gissad bokstav
     }
-    if (gameWord.includes(userGuess)) {
-      used_Letters = foundWord;
-      for (let i = 0; i < gameWord.length; i++) {
-        if (gameWord[i] === userGuess) {
-          foundWord[i] = userGuess; //ersätter _ med bokstaven om den finns i ordet
-          console.log("Rätt bokstav: ", foundWord);
+    if (wordToGuess.includes(userGuess)) {
+      guessedLetters = printUnderlines;
+      for (let i = 0; i < wordToGuess.length; i++) {
+        if (wordToGuess[i] === userGuess) {
+          printUnderlines[i] = userGuess; //ersätter _ med bokstaven om den finns i ordet
+          console.log("Rätt bokstav: ", printUnderlines); //ta bort denna? /Rebban
         }
       }
 
-      if (!foundWord.includes("_")) {
+      if (!printUnderlines.includes("_")) {
         showWinOrLoseBox.classList.remove("hidden");
         youWin.textContent = `Du gissade rätt!`;
       }
-      printUnderlines = used_Letters.join(" "); //
-      showUnderlines.innerHTML = printUnderlines; //skriver ut _ där det fortf. saknas bokstäver
-      console.log(used_Letters);
+      let underlines = guessedLetters.join(" "); //
+      showUnderlines.textContent = underlines; //skriver ut _ där det fortf. saknas bokstäver
+      console.log(guessedLetters); //ta bort denna? /Rebban
     } else {
-      wrong_Letters.push(userGuess); //lägger till felaktig gissad bokstav i en array
-      showUsedLetters.textContent = wrong_Letters; //visa felaktiga och gissade bokstäver i html
+      wrongLetters.push(userGuess); //lägger till felaktig gissad bokstav i en array
+      showWrongLetters.textContent = wrongLetters; //visa felaktiga och gissade bokstäver i html
 
-      console.log(failCount);
-      //   console.log("Used letters: ", used_Letters);
+      console.log(failedGuesses); //ta bort denna? /Rebban
       drawMan();
     }
   });
 };
 
 const drawMan = () => {
-  if (!gameWord.includes(userGuess)) {
+  if (!wordToGuess.includes(userGuess)) {
     //Använda bosktäver in i arryen.
-    if (failCount == 0) {
+    if (failedGuesses == 0) {
       //För att få scafolding  att visas först.
-      picture_of_man.item(failCount).classList.remove("hidden");
+      theHangedMan.item(failedGuesses).classList.remove("hidden");
     } else {
-      picture_of_man.item(5 - failCount).classList.remove("hidden");
+      theHangedMan.item(5 - failedGuesses).classList.remove("hidden");
     }
 
-    failCount++;
+    failedGuesses++;
 
-    if (failCount === 5) {
-      console.log("hest");
-      state = "lost";
+    if (failedGuesses === 5) {
+      state = "vann!";
       window.setTimeout(function () {
         //delay so that the page can render
-        reset(state);
+        resetGame(state);
       }, 200);
     }
   }
 };
 
-function reset(state) {
-  if (confirm(`You ${state}, the word was: ${gameWord} play again?`)) {
+function resetGame(state) {
+  if (
+    confirm(`Du ${state}, rätt ord var: ${wordToGuess} vill du spela igen?`)
+  ) {
     location.reload();
   }
 }
