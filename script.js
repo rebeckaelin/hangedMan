@@ -66,7 +66,7 @@ const findLetter = () => {
     userGuess = document.querySelector("#guessInput").value; //hämtar värdet i inputfältet
     document.querySelector("#guessInput").value = ""; // rensar inputfältet efter varje knapptryckning på "gissa"
 
-    if (guessedLetters.includes(userGuess)) {
+    if (wrongLetters.includes(userGuess)) {
       return; //kontrollerar om vi redan skrivit in gissad bokstav
     }
     if (wordToGuess.includes(userGuess)) {
