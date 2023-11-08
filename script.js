@@ -75,7 +75,7 @@ startButton.addEventListener("click", () => {
   console.log(pickedWord);
 });
 
-//funktion för att få in spelarens gissningar c
+//funktion för att få in spelarens gissningar
 guessButton.addEventListener("click", () => {
   userGuess = document.querySelector("#input").value; //hämtar värdet i inputfältet
   document.querySelector("#input").value = ""; // rensar inputfältet efter varje knapptryckning på "gissa"
@@ -126,7 +126,7 @@ guessButton.addEventListener("click", () => {
 // funktion om spelet är slut
 // if/else som kontrollerar om du vunnit eller förlorat
 // om du vann: YAY
-// om du förlorade: NEY, rätt ort var: ....
+// om du förlorade: NEY, rätt ord var: ....
 // oavsett vilket skapa "spela igen" knapp - startButton.innerText = 'SPELA IGEN'
 // när du klickar på ovan knapp kör resetGame
 
