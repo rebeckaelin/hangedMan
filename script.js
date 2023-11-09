@@ -179,7 +179,7 @@ const drawMan = (guess) => {
       youWin.innerHTML = `Du Förlorade!<br> Rätt ord var: "${wordToGuess}".<br> <br>Vill du spela igen?<br> <b>Klicka Här</b>`;
       //Visar en knapp med text som man kan klicka på för att starta om spelet, genom att ta bort hide klassen.
       resetButton.classList.remove("hide");
-
+      disableGuess(true);
       resetButton.addEventListener("click", () => {
         // Laddar om en ny sida om man klickar på knappen för att spela igen.
         location.reload();
@@ -217,7 +217,7 @@ let timer = setInterval(() => {
     youWin.innerHTML = `Du Förlorade!<br> Rätt ord var: "${wordToGuess}".<br> <br>Vill du spela igen?<br> <b>Klicka Här</b>`;
     //Visar en knapp med text som man kan klicka på för att starta om spelet, genom att ta bort hide klassen.
     resetButton.classList.remove("hide");
-
+    disableGuess(true);
     resetButton.addEventListener("click", () => {
       location.reload(); // Laddar om en ny sida om man klickar på knappen.
     });
