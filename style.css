@@ -8,112 +8,110 @@
 }
 
 body {
-  width: 1300px;
-  height: 1300px;
+  width: 90vw;
+  height: 90vh;
+  padding: 2rem;
   border: 2px solid black;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: auto;
   margin: 0 auto;
+  justify-content: center;
 }
 
 .header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 2rem;
   grid-column: 1/-1;
 }
 
-h1 {
+.header__title {
   font-family: "Caveat", cursive;
-  font-size: 5rem;
-  margin-bottom: 2rem;
 }
-h3 {
+.header__desc {
+  font-size: 1.1rem;
+}
+.header__timer {
+  margin-top: 1rem;
+}
+.used-letters {
+  grid-column: 1/2;
+  grid-row: 2/3;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  flex-direction: column;
+}
+.used-letters__title {
   font-family: "Caveat", cursive;
-  text-align: center;
   padding-bottom: 0.5rem;
 }
 
+.used-letters__text {
+  height: 7rem;
+  width: 10rem;
+  font-size: 1.6rem;
+  text-align: center;
+}
 .win {
   grid-column: 1/-1;
   grid-row: 2/3;
   z-index: 1;
   margin: 0 auto;
+  border: 2px solid black;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: 3rem;
   background-color: antiquewhite;
-  width: 38rem;
-  height: 26rem;
-
+  width: 12rem;
+  height: 8rem;
   box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.11);
   border-radius: 1rem;
   text-align: center;
   cursor: pointer;
+  margin-top: 3rem;
 }
 
 .hidden,
 .hide {
   display: none;
 }
-
-p {
-  margin-top: 1.2rem;
-  font-size: 3rem;
-}
-.header__timer {
-  margin: 4rem;
-}
-
-.used-letters {
-  font-size: 2rem;
-  grid-column: 1/2;
-  grid-row: 2/3;
-  text-align: center;
-}
-
-.used-letters__text {
-  height: 7rem;
-  width: 10rem;
-  margin: 0 auto;
-  margin-top: 2rem;
-  padding: 2rem;
-}
-
 .hanged-man {
   grid-column: 2/-1;
   grid-row: 2/3;
 }
 
+svg {
+  height: 400px;
+  width: 400px;
+}
+
 .guess-section {
   display: flex;
   justify-content: center;
-  margin: 4rem;
+  /* margin: 4rem; */
   grid-column: 1/2;
   grid-row: 3/4;
 }
 #guessButton {
-  padding: 1rem;
+  padding: 0.7rem;
   border-radius: 1rem;
-  font-size: 2rem;
+  font-size: 1rem;
   font-weight: 700;
   margin-left: 1rem;
   background-color: antiquewhite;
   box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.11);
 }
 #guessInput {
-  font-size: 2rem;
-  width: 15rem;
-  height: 5rem;
+  font-size: 1rem;
+  width: 7rem;
+  height: 2rem;
   text-align: center;
 }
 .show-underlines {
-  font-size: 3rem;
+  font-size: 2rem;
   grid-column: 2/-1;
   grid-row: 3/4;
-  padding-top: 5rem;
 }
