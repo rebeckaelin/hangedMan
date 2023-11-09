@@ -108,12 +108,13 @@ const actionListner = (action) => {
       }
       //Om arraen som har det sökta ordet inte har några understreck i sig vinner spelaren spelet.
       if (!printUnderlines.includes("_")) {
+        clearInterval(timer);                 /*Om  spelaren har gissat rätt, stoppa klockan. */
         showWinOrLoseBox.classList.remove("hide");
         youWin.innerHTML = `Du vann,  <br> Vill du spela igen? <br><br> <b>Klicka Här</b>`; //Skriver ut en ett meddelande på skärmen.
         disableGuess();
         resetButton.classList.remove("hide"); //Visar en knapp med text som man kan klicka på för att starta om spelet.
         resetButton.addEventListener("click", () => {
-          // Laddar om en ny sida om man klickar på knappen.
+          // Laddar om en ny sida om man klickar på reset knappen.
           location.reload();
         });
       }
@@ -171,12 +172,13 @@ let time = 100;
 // Countdown timer som räknar ner tiden du har kvar på innan du förlorar
 //setInterval kallar kontinuerligt på en funktion efter angiven tid. Vilket är efter varje sekund i detta fall.
 let timer = setInterval(() => {
+  
   time--;
   //output av tiden
   document.querySelector(".header__timer").textContent = time + "s ";
 
-  // om timern når 0 så skriver spelet ut förlorar rutan.
-  if (time === 0) {
+  // om timern når 0 så skriver spelet ut förlorar rutan eller om spelaren har gissat fel 5 gånger.
+  if (time === 0 || failedGuesses === 5 ) {
     clearInterval(timer);
     showWinOrLoseBox.classList.remove("hide"); //Visar en låda med text, genom att ta bort hide klassen .
     youWin.innerHTML = `Du Förlorade! <br>Rätt ord var: "${wordToGuess}". <br><br>Vill du spela igen?<br> <b>Klicka Här</b>`; //Skriver ut en ett meddelande på skärmen.
