@@ -99,20 +99,20 @@ p {
 #guessButton {
   padding: 1rem;
   border-radius: 1rem;
-  font-size: 4rem;
+  font-size: 2rem;
   font-weight: 700;
   margin-left: 1rem;
   background-color: antiquewhite;
   box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.11);
 }
 #guessInput {
-  font-size: 4rem;
+  font-size: 2rem;
   width: 15rem;
-  height: 7rem;
+  height: 5rem;
   text-align: center;
 }
 .show-underlines {
-  font-size: 6rem;
+  font-size: 3rem;
   grid-column: 2/-1;
   grid-row: 3/4;
   padding-top: 5rem;
