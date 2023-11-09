@@ -10,24 +10,23 @@ let startButton = document.querySelector(".header__button"); //Knapp för att st
 let showWinOrLoseBox = document.querySelector(".hide"); //HTML paragraf för win eller lose lådan.
 //En lista med ord.
 const words = [
-  "APA",
-  // "motivation",
-  // "length",
-  // "brick",
-  // "tenant",
-  // "day",
-  // "gold",
-  // "technique",
-  // "sacred",
-  // "sunshine",
-  // "aquarium",
-  // "therapist",
-  // "jail",
-  // "technology",
-  // "javascript",
-  // "master",
-  // "surf",
-  // "electronics",
+  "motivation",
+  "length",
+  "brick",
+  "tenant",
+  "day",
+  "gold",
+  "technique",
+  "sacred",
+  "sunshine",
+  "aquarium",
+  "therapist",
+  "jail",
+  "technology",
+  "javascript",
+  "master",
+  "surf",
+  "electronics",
 ];
 
 /*-------- Variabler -------------*/
@@ -156,11 +155,10 @@ const drawMan = (guess) => {
     }
   }
 };
-
+//funktion som gör att man inte kan gissa när man vunnit eller förlorat
 function disableGuess() {
   guessButton.disabled = true;
 }
-console.log(wrongLetters);
 /*-----funktionsanrop-------*/
 
 /*Initierar spelet*/
@@ -174,7 +172,6 @@ let time = 100;
 //setInterval kallar kontinuerligt på en funktion efter angiven tid. Vilket är efter varje sekund i detta fall.
 let timer = setInterval(() => {
   time--;
-  console.log(time);
   //output av tiden
   document.querySelector(".header__timer").textContent = time + "s ";
 
