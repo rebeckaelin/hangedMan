@@ -11,7 +11,7 @@ let youWin = document.querySelector(".you-win");
 let startButton = document.querySelector(".header__button");
 let showWinOrLoseBox = document.querySelector(".hidden");
 
-let guessedLetter = [];
+let wrongLetters = [];
 let guesses = 0;
 let userGuess; // variabel för spelarens gissning
 let pickedWord;
@@ -67,12 +67,18 @@ function getRandomWord() {
   return levelOneWords[Math.floor(Math.random() * levelOneWords.length)];
 }
 
+disableButton(true);
+
 //eventlistener för att starta spelet
 startButton.addEventListener("click", () => {
   pickedWord = getRandomWord(); //sparar funktionen som slumpar ett ord i en variabel
   printUnderlines = pickedWord.split("").fill("_").join(" "); //variabel där vi sparar det slumpade ordet och gör det till _
   showUnderlines.innerText = printUnderlines; //Skriver ut rätt antal _ baserat på ordet som slumpats
   console.log(pickedWord);
+
+  disableButton(false);
+  resetGame();
+  startButton.innerText = "BÖRJA OM";
 });
 
 //funktion för att få in spelarens gissningar
@@ -80,26 +86,28 @@ guessButton.addEventListener("click", () => {
   userGuess = document.querySelector("#input").value; //hämtar värdet i inputfältet
   document.querySelector("#input").value = ""; // rensar inputfältet efter varje knapptryckning på "gissa"
 
-  if (guessedLetter.includes(userGuess)) {
+  if (wrongLetters.includes(userGuess)) {
     return; //kontrollerar om vi redan skrivit in gissad bokstav
   }
   if (pickedWord.includes(userGuess)) {
-    let guessedLetter = printUnderlines.split(" "); //delar upp min sträng (pickedword) till en array som sparas i en variabel
+    let wrongLetters = printUnderlines.split(" "); //delar upp min sträng (pickedword) till en array som sparas i en variabel
     for (let i = 0; i < pickedWord.length; i++) {
       if (pickedWord[i] === userGuess) {
-        guessedLetter[i] = userGuess; //ersätter _ med bokstaven om den finns i ordet
+        wrongLetters[i] = userGuess; //ersätter _ med bokstaven om den finns i ordet
       }
     }
-    if (guessedLetter.join("") === pickedWord) {
+    if (wrongLetters.join("") === pickedWord) {
       showWinOrLoseBox.classList.remove("hidden");
-      youWin.innerText = `Du gissade rätt!`;
+      youWin.textContent = `Du gissade rätt!`;
+      startButton.innerText = "SPELA IGEN";
+      disableButton(true);
     }
-    printUnderlines = guessedLetter.join(" "); //gör guessedLetter tillbaks till en sträng igen
+    printUnderlines = wrongLetters.join(" "); //gör wrongLetters tillbaks till en sträng igen
     showUnderlines.innerText = printUnderlines; //skriver ut _ där det fortf. saknas bokstäver
-    console.log(guessedLetter);
+    // console.log(wrongLetters);
   } else {
-    guessedLetter.push(userGuess); //lägger till felaktig gissad bokstav i en array
-    showUsedLetters.innerText = guessedLetter; //visa felaktiga och gissade bokstäver irText
+    wrongLetters.push(userGuess); //lägger till felaktig gissad bokstav i en array
+    showUsedLetters.innerText = wrongLetters; //visa felaktiga gissade bokstäver
 
     guesses++;
 
@@ -118,22 +126,26 @@ guessButton.addEventListener("click", () => {
     if (guesses === 5) {
       showLegs.style.visibility = "visible";
       showWinOrLoseBox.classList.remove("hidden");
-      youLose.innerText = `Du förlorade! Rätt ord var ${pickedWord}`;
+      youLose.innerHTML = `Du förlorade!<br> Rätt ord var: <b>${pickedWord}</b>`;
+      startButton.innerText = "SPELA IGEN";
+      disableButton(true);
     }
   }
 });
 
-// funktion om spelet är slut
-// if/else som kontrollerar om du vunnit eller förlorat
-// om du vann: YAY
-// om du förlorade: NEY, rätt ord var: ....
-// oavsett vilket skapa "spela igen" knapp - startButton.innerText = 'SPELA IGEN'
-// när du klickar på ovan knapp kör resetGame
-
-// function resetGame(){
-//     guessedLetter = [];
-//     guesses = 0;
-//     printUnderlines = pickedWord.split('').fill('_').join(' ');
-//     showUnderlines.innerText = printUnderlines;
-//     showWinOrLoseBox.classList.add('hidden')
-// }
+function resetGame() {
+  wrongLetters = [];
+  guesses = 0;
+  showWinOrLoseBox.classList.add("hidden");
+  youWin.innerText = "";
+  youLose.innerText = "";
+  showScaffold.style.visibility = "hidden";
+  showHead.style.visibility = "hidden";
+  showBody.style.visibility = "hidden";
+  showArms.style.visibility = "hidden";
+  showLegs.style.visibility = "hidden";
+  showUsedLetters.textContent = "";
+}
+function disableButton(condition) {
+  guessButton.disabled = condition;
+}
