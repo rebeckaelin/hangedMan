@@ -61,10 +61,10 @@ const initGame = () => {
   //Tilldela den sedan till printWords.textContent för att mata ut på dokumentet
   showUnderlines.textContent = printUnderlines.join(" ");
 
-  findLetter();
+  userGuess();
 };
 
-const findLetter = () => {
+const userGuess = () => {
   //En funktion för att få spelarens gissning
   guessButton.addEventListener("click", () => {
     //Tar värdet från input.
@@ -72,7 +72,7 @@ const findLetter = () => {
     //Rensar input fältet efter att spelaren har klickat på knappen "gissa".
     document.querySelector("#guessInput").value = "";
 
-    actionListner(guess);
+    findLetter(guess);
   });
 
   //Kollar efter "globala" knapptryck i dokumentet när textrutan ej är fokuserad.
@@ -82,7 +82,7 @@ const findLetter = () => {
       return;
       /*Kollar om spelet är över för att undvika input from tangentbordet efter att spelet är slut*/
     } else if (gameOver == false) {
-      actionListner(e.key);
+      findLetter(e.key);
     } else {
       return;
     }
@@ -92,7 +92,7 @@ const findLetter = () => {
 //Funktion som lyssnar efter händelser.
 //Kollar om spelaren har använt det gissade ordet förut.
 //Om spelaren har det händer ingenting.
-const actionListner = (action) => {
+const findLetter = (action) => {
   if (guessedLetters.includes(action)) {
     return;
   }
