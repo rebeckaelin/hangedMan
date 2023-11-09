@@ -165,6 +165,7 @@ initGame();
 //TIMER TIMER TIMER TIMER TIMER TIMER
 //Ställ in tidsbegränsing här
 let time = 10;
+
 // Countdown timer som räknar ner tiden du har kvar på innan du förlorar
 //setInterval kallar kontinuerligt på en funktion efter angiven tid. Vilket är efter varje sekund i detta fall.
 let timer = setInterval(() => {
