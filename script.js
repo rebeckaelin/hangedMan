@@ -39,6 +39,7 @@ let maxTries = 5; //max antal försök.
 let wrongLetters = []; //All bokstäver som är fel.
 let regex = /^[a-zA-ZäöåÄÖÅ]+$/; //Regex för att kolla så att inputet bara är bokstäver.
 let state = "";
+let gameOver = false;
 
 /*-------- Funktioner -------------*/
 
@@ -79,8 +80,11 @@ const findLetter = () => {
     //Hindrar sidan att upptäcka knapptryck i något annat än textrutan när den är focuserad.
     if (document.activeElement === document.querySelector(".inputBox")) {
       return;
-    } else {
+      /*Kollar om spelet är över för att undvika input from tangentbordet efter att spelet är slut*/
+    } else if (gameOver == false) {
       actionListner(e.key);
+    }else{
+      return;
     }
   });
 };
@@ -113,7 +117,8 @@ const actionListner = (action) => {
       }
       //Om arraen som har det sökta ordet inte har några understreck i sig vinner spelaren spelet.
       if (!printUnderlines.includes("_")) {
-        
+        /*GameOver state till inpppput från tangenter.*/ 
+        gameOver = true;
         /*Om  spelaren har gissat rätt, stoppa klockan. */
         clearInterval(timer);                 
         showWinOrLoseBox.classList.remove("hide");
@@ -126,6 +131,12 @@ const actionListner = (action) => {
           // Laddar om en ny sida om man klickar på reset knappen.
           location.reload();
         });
+
+        window.setTimeout(function () {
+          //delay so that the page can render.
+          action.preventDefault();
+          return false;
+          }, 500);
       }
       //Klipper ihop alla använda bokstäver till en sträng.
       let underlines = guessedLetters.join(" ");
@@ -161,7 +172,8 @@ const drawMan = (guess) => {
 
     //Om spelaren har misslyckats fem gånger förlorar spelaren spelet.
     if (failedGuesses === 5) {
-      
+      /*GameOver state till inpppput från tangenter.*/ 
+      gameOver = true;
       //Visar en låda med text, genom att ta bort hide klassen .
       showWinOrLoseBox.classList.remove("hide"); 
       //Skriver ut en ett meddelande på skärmen.
