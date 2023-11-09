@@ -8,7 +8,6 @@ let theHangedMan = document.querySelectorAll(".hidden"); //För att kunna visa g
 let youWin = document.querySelector(".win"); //För att skriva ut win or lose skylt till skärmen.
 let startButton = document.querySelector(".header__button"); //Knapp för att starta spelet.
 let showWinOrLoseBox = document.querySelector(".hide"); //HTML paragraf för win eller lose lådan.
-
 //En lista med ord.
 const words = [
   "motivation",
@@ -48,8 +47,6 @@ function getRandomWord() {
   return words[Math.floor(Math.random() * words.length)];
 }
 
-
-
 //En funktion som initierar spelet.
 const initGame = () => {
   //Tar ett ord på från listan och sparar den i wordToGuess och gör alla bokstäver till små bokstäver.
@@ -64,6 +61,7 @@ const initGame = () => {
   showUnderlines.textContent = printUnderlines.join(" ");
 
   findLetter();
+
 };
 
 const findLetter = () => {
@@ -72,18 +70,17 @@ const findLetter = () => {
     guess = document.querySelector("#guessInput").value; //Tar värdet från input.
     document.querySelector("#guessInput").value = ""; //Rensar input fältet efter att spelaren har klickat på knappen "gissa".
 
-    actionListner(guess)
+    actionListner(guess);
   });
 
   //Kollar efter "globala" knapptryck i dokumentet när textrutan ej är fokuserad.
   document.addEventListener("keydown", (e) => {
     //Hindrar sidan att upptäcka knapptryck i något annat än textrutan när den är focuserad.
-    if(document.activeElement === document.querySelector(".inputBox")) {
-        return
-      }else{
-        actionListner(e.key);
-      }
-   
+    if (document.activeElement === document.querySelector(".inputBox")) {
+      return;
+    } else {
+      actionListner(e.key);
+    }
   });
 };
 
@@ -110,9 +107,8 @@ const actionListner = (action) => {
           printUnderlines[i] = action; //Byter ut understrecket med en bokstav på samma index om bokstaven finns i det sökta ordet.
         }
       }
-
+      //Om arraen som har det sökta ordet inte har några understreck i sig vinner spelaren spelet.
       if (!printUnderlines.includes("_")) {
-        //Om arraen som har det sökta ordet inte har några understreck i sig vinner spelaren spelet.
         showWinOrLoseBox.classList.remove("hide");
         youWin.innerHTML = `Du vann,  <br> Vill du spela igen? <br> Klicka Här`; //Skriver ut en ett meddelande på skärmen.
         resetButton.classList.remove("hide"); //Visar en knapp med text som man kan klicka på för att starta om spelet.
@@ -149,11 +145,9 @@ const drawMan = (guess) => {
 
     //Om spelaren har misslyckats fem gånger förlorar spelaren spelet.
     if (failedGuesses === 5) {
-
       showWinOrLoseBox.classList.remove("hide"); //Visar en låda med text, genom att ta bort hide klassen .
       youWin.innerHTML = `Du Förlorade! Rätta ordet var: "${wordToGuess}". <br>Vill du spela igen?<br> Klicka Här`; //Skriver ut en ett meddelande på skärmen.
       resetButton.classList.remove("hide"); //Visar en knapp med text som man kan klicka på för att starta om spelet, genom att ta bort hide klassen.
-
 
       resetButton.addEventListener("click", () => {
         location.reload(); // Laddar om en ny sida om man klickar på knappen.
@@ -166,4 +160,33 @@ const drawMan = (guess) => {
 
 /*Initierar spelet*/
 initGame();
+
+
+//TIMER TIMER TIMER TIMER TIMER TIMER
+//Ställ in tidsbegränsing här
+let time = 10;
+// Countdown timer som räknar ner tiden du har kvar på innan du förlorar
+//setInterval kallar kontinuerligt på en funktion efter angiven tid. Vilket är efter varje sekund i detta fall.
+let timer = setInterval(() => {
+  time--;
+  console.log(time);
+  //output av tiden
+  document.querySelector(".timer").textContent = time + "s ";
+
+  // om timern når 0 så skriver spelet ut förlorar rutan.
+  if (time === 0) {
+    clearInterval(timer);
+          showWinOrLoseBox.classList.remove("hide"); //Visar en låda med text, genom att ta bort hide klassen .
+      youWin.innerHTML = `Du Förlorade! Rätta ordet var: "${wordToGuess}". <br>Vill du spela igen?<br> Klicka Här`; //Skriver ut en ett meddelande på skärmen.
+      resetButton.classList.remove("hide"); //Visar en knapp med text som man kan klicka på för att starta om spelet, genom att ta bort hide klassen.
+
+      resetButton.addEventListener("click", () => {
+        location.reload(); // Laddar om en ny sida om man klickar på knappen.
+  });
+}
+
+}, 1000);
+
+
+
 
