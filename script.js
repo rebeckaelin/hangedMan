@@ -113,7 +113,7 @@ const actionListner = (action) => {
         youWin.innerHTML = `Du vann,  <br> Vill du spela igen? <br> Klicka Här`; //Skriver ut en ett meddelande på skärmen.
         resetButton.classList.remove("hide"); //Visar en knapp med text som man kan klicka på för att starta om spelet.
         resetButton.addEventListener("click", () => {
-          // Laddar om en ny sida om man klickar på knappen.
+          // Laddar om en ny sida om man klickar på reset knappen.
           location.reload();
         });
       }
