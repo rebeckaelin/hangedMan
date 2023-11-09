@@ -21,13 +21,13 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 4rem;
+  margin: 2rem;
   grid-column: 1/-1;
 }
 
 h1 {
   font-family: "Caveat", cursive;
-  font-size: 7rem;
+  font-size: 5rem;
   margin-bottom: 2rem;
 }
 h3 {
