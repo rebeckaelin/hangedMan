@@ -73,7 +73,7 @@ disableButton(true);
 startButton.addEventListener("click", () => {
   pickedWord = getRandomWord(); //sparar funktionen som slumpar ett ord i en variabel
   printUnderlines = pickedWord.split("").fill("_").join(" "); //variabel där vi sparar det slumpade ordet och gör det till _
-  showUnderlines.innerText = printUnderlines; //Skriver ut rätt antal _ baserat på ordet som slumpats
+  showUnderlines.textContent = printUnderlines; //Skriver ut rätt antal _ baserat på ordet som slumpats
   console.log(pickedWord);
 
   disableButton(false);
@@ -99,7 +99,7 @@ guessButton.addEventListener("click", () => {
     if (wrongLetters.join("") === pickedWord) {
       showWinOrLoseBox.classList.remove("hidden");
       youWin.textContent = `Du gissade rätt!`;
-      startButton.innerText = "SPELA IGEN";
+      startButton.textContent = "SPELA IGEN";
       disableButton(true);
     }
     printUnderlines = wrongLetters.join(" "); //gör wrongLetters tillbaks till en sträng igen
