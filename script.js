@@ -100,7 +100,7 @@ const findLetter = (action) => {
   if (regex.test(action)) {
     //Kollar om spelaren har använt det gissade ordet förut.
     //Om spelaren har det, händer ingenting.
-    if (guessedLetters.includes(action)) {
+    if (wrongLetters.includes(action)) {
       return;
     }
 
@@ -169,9 +169,9 @@ const drawMan = (guess) => {
 
     failedGuesses++; //incrementerar på antalet misslyckade försök.
 
-    //Om spelaren har misslyckats fem gånger förlorar spelaren spelet.
+    // Om spelaren har misslyckats fem gånger förlorar spelaren spelet.
     if (failedGuesses === 5) {
-      /*GameOver state till inpppput från tangenter.*/
+      /*GameOver state till input från tangenter.*/
       gameOver = true;
       //Visar en låda med text, genom att ta bort hide klassen .
       showWinOrLoseBox.classList.remove("hide");
@@ -208,7 +208,7 @@ let timer = setInterval(() => {
   document.querySelector(".header__timer").textContent = time + "s ";
 
   // om timern når 0 så skriver spelet ut förlorar rutan eller om spelaren har gissat fel 5 gånger.
-  if (time === 0 || failedGuesses === 5) {
+  if (time === 0) {
     clearInterval(timer);
 
     //Visar en låda med text, genom att ta bort hide klassen.
