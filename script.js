@@ -146,6 +146,7 @@ function resetGame() {
   showLegs.style.visibility = "hidden";
   showUsedLetters.textContent = "";
 }
+
 function disableButton(condition) {
   guessButton.disabled = condition;
 }
