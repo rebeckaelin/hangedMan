@@ -90,19 +90,19 @@ guessButton.addEventListener("click", () => {
     return; //kontrollerar om vi redan skrivit in gissad bokstav
   }
   if (pickedWord.includes(userGuess)) {
-    let wrongLetters = printUnderlines.split(" "); //delar upp min sträng (pickedword) till en array som sparas i en variabel
+    let printLetter = printUnderlines.split(" "); //delar upp min sträng (pickedword) till en array som sparas i en variabel
     for (let i = 0; i < pickedWord.length; i++) {
       if (pickedWord[i] === userGuess) {
-        wrongLetters[i] = userGuess; //ersätter _ med bokstaven om den finns i ordet
+        printLetter[i] = userGuess; //ersätter _ med bokstaven om den finns i ordet
       }
     }
-    if (wrongLetters.join("") === pickedWord) {
+    if (printLetter.join("") === pickedWord) {
       showWinOrLoseBox.classList.remove("hidden");
       youWin.textContent = `Du gissade rätt!`;
       startButton.textContent = "SPELA IGEN";
       disableButton(true);
     }
-    printUnderlines = wrongLetters.join(" "); //gör wrongLetters tillbaks till en sträng igen
+    printUnderlines = printLetter.join(" "); //gör wrongLetters tillbaks till en sträng igen
     showUnderlines.innerText = printUnderlines; //skriver ut _ där det fortf. saknas bokstäver
     // console.log(wrongLetters);
   } else {
