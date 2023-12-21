@@ -104,11 +104,10 @@ guessButton.addEventListener("click", () => {
     }
     printUnderlines = printLetter.join(" "); //gör wrongLetters tillbaks till en sträng igen
     showUnderlines.innerText = printUnderlines; //skriver ut _ där det fortf. saknas bokstäver
-    // console.log(wrongLetters);
   } else {
     wrongLetters.push(userGuess); //lägger till felaktig gissad bokstav i en array
     showUsedLetters.innerText = wrongLetters; //visa felaktiga gissade bokstäver
-
+    console.log(wrongLetters);
     guesses++;
 
     if (guesses === 1) {

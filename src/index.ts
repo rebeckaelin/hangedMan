@@ -19,6 +19,7 @@ let wrongLetters: string[] = [];
 let guesses: number = 0;
 let userGuess: string; // variabel för spelarens gissning
 let pickedWord: string;
+let printUnderlines: string;
 
 let levelOneWords: string[] = [
   "bil",
@@ -80,7 +81,10 @@ disableButton(true);
 //eventlistener för att starta spelet
 startButton.addEventListener("click", (): void => {
   pickedWord = getRandomWord(); //sparar funktionen som slumpar ett ord i en variabel
-  let printUnderlines: string = pickedWord.split("").fill("_").join(" "); //variabel där vi sparar det slumpade ordet och gör det till _
+  printUnderlines = pickedWord
+    .split("" as string)
+    .fill("_" as string)
+    .join(" " as string); //variabel där vi sparar det slumpade ordet och gör det till _
   if (showUnderlines) {
     showUnderlines.textContent = printUnderlines; //Skriver ut rätt antal _ baserat på ordet som slumpats}
   }
@@ -93,14 +97,16 @@ startButton.addEventListener("click", (): void => {
 
 //funktion för att få in spelarens gissningar
 guessButton.addEventListener("click", (): void => {
-  userGuess = (document.querySelector("#input") as HTMLInputElement).value; //hämtar värdet i inputfältet
-  (document.querySelector("#input") as HTMLInputElement).value = ""; // rensar inputfältet efter varje knapptryckning på "gissa"
-  let printUnderlines: string = "";
+  console.log(`Före: ${printUnderlines}`);
+  userGuess = (document.querySelector("#input") as HTMLInputElement).value;
+  (document.querySelector("#input") as HTMLInputElement).value = "";
   if (wrongLetters.includes(userGuess)) {
     return; //kontrollerar om vi redan skrivit in gissad bokstav
   }
   if (pickedWord.includes(userGuess)) {
     let printLetter: string[] = printUnderlines.split(" "); //delar upp min sträng (pickedword) till en array som sparas i en variabel
+    console.log(printLetter);
+
     for (let i = 0; i < pickedWord.length; i++) {
       if (pickedWord[i] === userGuess) {
         printLetter[i] = userGuess; //ersätter _ med bokstaven om den finns i ordet
@@ -112,15 +118,13 @@ guessButton.addEventListener("click", (): void => {
       startButton.textContent = "SPELA IGEN";
       disableButton(true);
     }
-    printUnderlines = printLetter.join(" "); //gör wrongLetters tillbaks till en sträng igen
+    printUnderlines = printLetter.join(""); //gör wrongLetters tillbaks till en sträng igen
+    console.log(`Efter: ${printUnderlines}`);
     showUnderlines.innerText = printUnderlines; //skriver ut _ där det fortf. saknas bokstäver
-    // console.log(wrongLetters);
   } else {
     wrongLetters.push(userGuess); //lägger till felaktig gissad bokstav i en array
-    wrongLetters.join(",");
-    showUsedLetters.innerText as string;
-    wrongLetters; //visa felaktiga gissade bokstäver
-
+    showUsedLetters.innerText = wrongLetters.join(" "); //visa felaktiga gissade bokstäver
+    // console.log(wrongLetters);
     guesses++;
 
     if (guesses === 1) {
